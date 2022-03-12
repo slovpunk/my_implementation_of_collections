@@ -7,6 +7,23 @@ public class MyMap<K, V> implements Map<K, V> {
     private List<V>[] values = new ArrayList[10];
     private List<K>[] keys = new ArrayList[10];
 
+    @Override
+    public V get(Object key) {
+        int hash = key.hashCode();
+        int index = hash % values.length;
+
+        List<K> keyBucket = keys[index];
+
+        if(keyBucket == null || !keyBucket.contains(key)) {
+            return null;
+        }
+
+        int keyIndex = keyBucket.indexOf(key);
+        V value = values[index].get(keyIndex);
+
+        return value;
+    }
+
 
     @Override
     public int size() {
@@ -26,11 +43,6 @@ public class MyMap<K, V> implements Map<K, V> {
     @Override
     public boolean containsValue(Object value) {
         return false;
-    }
-
-    @Override
-    public V get(Object key) {
-        return null;
     }
 
     @Override
