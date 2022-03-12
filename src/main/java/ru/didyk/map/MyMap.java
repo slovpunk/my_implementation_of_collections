@@ -14,14 +14,69 @@ public class MyMap<K, V> implements Map<K, V> {
 
         List<K> keyBucket = keys[index];
 
-        if(keyBucket == null || !keyBucket.contains(key)) {
+        if (keyBucket == null || !keyBucket.contains(key)) {
             return null;
         }
 
-        int keyIndex = keyBucket.indexOf(key);
-        V value = values[index].get(keyIndex);
+        if (keyBucket.contains(key)) {
+            int keyIndex = keyBucket.indexOf(key);
+            return values[index].get(keyIndex);
+        }
+        return null;
+    }
 
-        return value;
+    @Override
+    public V put(K key, V value) {
+        int hash = key.hashCode();
+        int index = hash % keys.length;
+
+        List<K> keyBucket = keys[index];
+
+        //если ключа нет, но хранилище есть
+        if (keyBucket != null && !keyBucket.contains(key)) {
+            keyBucket.add(key);
+            values[index].add(value);
+            return value;
+        }
+
+        //если нет хранилища и нет ключа
+        if (keyBucket == null) {
+            List<K> bucketKeys = new ArrayList<>();
+            bucketKeys.add(key);
+            keys[index] = bucketKeys;
+
+            List<V> bucketValues = new ArrayList<>();
+            bucketValues.add(value);
+            values[index] = bucketValues;
+            return value;
+        }
+
+        // если ключ есть, но значение другое
+        if (keyBucket.contains(key)) {
+          List<V> bucketValues = values[index];
+          int keyIndex = keyBucket.indexOf(key);
+          List<V> temp = new ArrayList<>();
+            for (int i = 0; i < bucketValues.size(); i++) {
+                if(bucketValues.indexOf(value) != keyIndex) {
+                    temp.add(bucketValues.get(i));
+                } else {
+                    temp.add(value);
+                }
+            }
+            values[index] = temp;
+            return value;
+        }
+
+
+        //если ключ есть и значение
+       if(keyBucket.contains(key)) {
+           int keyIndex = keyBucket.indexOf(key);
+           List<V> bucket = values[index];
+           if(bucket.contains(value) && bucket.indexOf(value) == keyIndex) {
+               return value;
+           }
+       }
+        return null;
     }
 
 
@@ -43,11 +98,6 @@ public class MyMap<K, V> implements Map<K, V> {
     @Override
     public boolean containsValue(Object value) {
         return false;
-    }
-
-    @Override
-    public V put(K key, V value) {
-        return null;
     }
 
     @Override
