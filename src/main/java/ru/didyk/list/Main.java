@@ -11,22 +11,19 @@ public class Main {
 
         list.add(99);
         list.add(100);
-        list.add(101);
+//        list.add(101);
 
         myVersionOfList.add(1);
         myVersionOfList.add(2);
-        myVersionOfList.add(3);
-        myVersionOfList.add(4);
-        myVersionOfList.add(5);
-//        System.out.println(myVersionOfList);
-//
-//        myVersionOfList.clear();
-//        System.out.println("_____________________");
+//        myVersionOfList.add(3);
+//        myVersionOfList.add(4);
+//        myVersionOfList.add(5);
         System.out.println(myVersionOfList.contains("as"));
         myVersionOfList.addAll(list);
         myVersionOfList.add(5, 10);
         myVersionOfList.remove(7);
         System.out.println(myVersionOfList.size());
+//        myVersionOfList.clear();
         System.out.println(myVersionOfList);
     }
 }

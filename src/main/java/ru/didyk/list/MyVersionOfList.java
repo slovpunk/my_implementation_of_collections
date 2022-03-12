@@ -11,6 +11,7 @@ public class MyVersionOfList<E> implements List<E> {
 
     @Override
     public String toString() {
+    //TODO: выводит null'ы
         return Arrays.toString(array);
     }
 
@@ -84,18 +85,30 @@ public class MyVersionOfList<E> implements List<E> {
             count++;
         }
         array = array1;
+        size--;
         return (E) array[index - 1];
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        Object[] newArray = Arrays.copyOf(array, c.size() + array.length);
-        int count = 0;
-        for (int i = array.length; i < newArray.length; i++) {
-            newArray[i] = c.toArray()[count];
-            count++;
+        //TODO: разобраться с условиями if
+        if(array.length <= (c.size() + size)) {
+            Object[] newArray = Arrays.copyOf(array, c.size() + array.length);
+            int count = 0;
+            for (int i = array.length; i < newArray.length; i++) {
+                newArray[i] = c.toArray()[count];
+                count++;
+            }
+            array = newArray;
+            size += c.size();
+        } else {
+            int count = 0;
+            for (int i = size; i < array.length; i++) {
+                array[size] = c.toArray()[count];
+                count++;
+                size++;
+            }
         }
-        array = newArray;
         return true;
     }
 
