@@ -67,7 +67,6 @@ public class MyMap<K, V> implements Map<K, V> {
             return value;
         }
 
-
         //если ключ есть и значение
        if(keyBucket.contains(key)) {
            int keyIndex = keyBucket.indexOf(key);
