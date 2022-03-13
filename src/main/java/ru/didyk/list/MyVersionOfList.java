@@ -3,6 +3,7 @@ package ru.didyk.list;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class MyVersionOfList<E> implements List<E> {
 
@@ -11,7 +12,7 @@ public class MyVersionOfList<E> implements List<E> {
 
     @Override
     public String toString() {
-    //TODO: выводит null'ы
+        //TODO: выводит null'ы
         return Arrays.toString(array);
     }
 
@@ -92,7 +93,7 @@ public class MyVersionOfList<E> implements List<E> {
     @Override
     public boolean addAll(Collection<? extends E> c) {
         //TODO: разобраться с условиями if
-        if(array.length <= (c.size() + size)) {
+        if (array.length <= (c.size() + size)) {
             Object[] newArray = Arrays.copyOf(array, c.size() + array.length);
             int count = 0;
             for (int i = array.length; i < newArray.length; i++) {
@@ -116,8 +117,33 @@ public class MyVersionOfList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException();
+        return new Itr<E>();
     }
+
+    private class Itr<T> implements Iterator<T> {
+        //TODO: чтобы возвращал правильное значение в методе next
+        private int currentIndex;
+        private int firstIndex;
+
+
+        @Override
+        public boolean hasNext() {
+            return size < array.length && array[size] != null;
+        }
+
+        @Override
+        public T next() {
+            size = 0;
+            T next = (T) array[size++];
+            return next;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
 
     @Override
     public Object[] toArray() {

@@ -1,6 +1,7 @@
 package ru.didyk.list;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Main {
@@ -18,12 +19,23 @@ public class Main {
 //        myVersionOfList.add(3);
 //        myVersionOfList.add(4);
 //        myVersionOfList.add(5);
-        System.out.println(myVersionOfList.contains("as"));
-        myVersionOfList.addAll(list);
-        myVersionOfList.add(5, 10);
-        myVersionOfList.remove(7);
-        System.out.println(myVersionOfList.size());
+//        System.out.println(myVersionOfList.contains("as"));
+//        myVersionOfList.addAll(list);
+//        myVersionOfList.add(5, 10);
+//        myVersionOfList.remove(7);
+//        System.out.println(myVersionOfList.size());
 //        myVersionOfList.clear();
-        System.out.println(myVersionOfList);
+//        System.out.println(myVersionOfList);
+
+        Iterator<Integer> iterator = myVersionOfList.iterator();
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+
+
     }
 }
